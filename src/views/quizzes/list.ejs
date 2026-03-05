@@ -1,0 +1,41 @@
+<h2>Quiz List</h2>
+
+<a class="btn" href="/quizzes/create">Create New Quiz</a>
+
+<br><br>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Total Questions</th>
+    <th>Created At</th>
+    <th>Actions</th>
+  </tr>
+
+  <% quizzes.forEach(quiz => { %>
+    <tr>
+      <td><%= quiz.title %></td>
+
+      <td>
+        <%= quiz.description ? quiz.description : "No description" %>
+      </td>
+
+      <td><%= quiz.questions.length %></td>
+
+      <td><%= quiz.createdAt.toDateString() %></td>
+
+      <td>
+        <div class="actions">
+          <a class="btn" href="/quizzes/edit/<%= quiz._id %>">Edit</a>
+
+          <form action="/quizzes/delete/<%= quiz._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="btn danger" onclick="return confirm('Are you sure?')">
+              Delete
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+  <% }) %>
+</table>

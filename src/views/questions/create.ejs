@@ -1,0 +1,66 @@
+<h2>Create New Question</h2>
+
+<form action="/questions/create" method="POST">
+
+  <!-- Question text -->
+  <div>
+    <label>Question Text:</label><br>
+    <input type="text" name="text" required style="width:400px;">
+  </div>
+
+  <br>
+
+  <!-- Options -->
+  <div>
+    <label>Options:</label><br>
+
+    <input type="text" name="options[]" placeholder="Option 0" required><br>
+    <input type="text" name="options[]" placeholder="Option 1" required><br>
+    <input type="text" name="options[]" placeholder="Option 2"><br>
+    <input type="text" name="options[]" placeholder="Option 3"><br>
+
+  </div>
+
+  <br>
+
+  <!-- Correct answer index -->
+  <div>
+    <label>Correct Answer Index:</label><br>
+    <input type="number" name="correctAnswerIndex" min="0" required>
+    <small>(Index starts from 0)</small>
+  </div>
+
+  <br>
+
+  <div>
+    <label>Select Quiz:</label><br>
+
+    <select name="quizId" required>
+      <option value="">-- Choose Quiz --</option>
+
+      <% quizzes.forEach(quiz => { %>
+        <option value="<%= quiz._id %>">
+          <%= quiz.title %> ( <%= quiz.questions.length %> questions )
+        </option>
+      <% }) %>
+
+    </select>
+  </div>
+
+  <br>
+
+  <!-- Keywords -->
+  <div>
+    <label>Keywords (comma separated):</label><br>
+    <input type="text" name="keywords" placeholder="chemistry,symbol">
+  </div>
+
+  <br>
+
+  <button type="submit">Create Question</button>
+
+</form>
+
+<br>
+
+<a href="/questions">Back to list</a>

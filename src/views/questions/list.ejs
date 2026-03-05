@@ -1,0 +1,33 @@
+<h2>Question List</h2>
+
+<a class="btn" href="/questions/create">Create New Question</a>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Quiz</th>
+    <th>Question</th>
+    <th>Action</th>
+  </tr>
+
+  <% questions.forEach(q=> { %>
+    <tr>
+      <td>
+        <%= q.quizTitle %>
+      </td>
+      <td>
+        <%= q.text %>
+      </td>
+      <td>
+        <div class="actions">
+          <a class="btn" href="/questions/edit/<%= q.quizId %>/<%= q._id %>">Edit</a>
+
+          <form action="/questions/delete/<%= q.quizId %>/<%= q._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="btn danger" onclick="return confirm('Are you sure?')">
+              Delete
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+</table>

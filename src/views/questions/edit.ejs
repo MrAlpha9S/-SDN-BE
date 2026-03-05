@@ -1,0 +1,87 @@
+<h2>Edit Question</h2>
+
+<form action="/questions/edit/<%= quizId %>/<%= question._id %>" method="POST">
+
+  <!-- Question text -->
+  <div>
+    <label>Question Text:</label><br>
+    <input 
+      type="text" 
+      name="text" 
+      value="<%= question.text %>" 
+      required 
+      style="width:400px;"
+    >
+  </div>
+
+  <br>
+
+  <!-- Options -->
+  <div>
+    <label>Options:</label><br>
+
+    <% question.options.forEach((option, index) => { %>
+      <input 
+        type="text" 
+        name="options[]" 
+        value="<%= option %>" 
+        required
+      >
+      <br>
+    <% }) %>
+
+  </div>
+
+  <br>
+
+  <!-- Correct answer index -->
+  <div>
+    <label>Correct Answer Index:</label><br>
+    <input 
+      type="number" 
+      name="correctAnswerIndex" 
+      value="<%= question.correctAnswerIndex %>" 
+      min="0" 
+      max="<%= question.options.length - 1 %>" 
+      required
+    >
+  </div>
+
+  <br>
+
+  <div>
+    <label>Quiz:</label><br>
+
+    <select name="newQuizId" required>
+      <% quizzes.forEach(q => { %>
+        <option 
+          value="<%= q._id %>" 
+          <%= q._id.toString() === quizId.toString() ? "selected" : "" %>
+        >
+          <%= q.title %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <br>
+
+  <!-- Keywords -->
+  <div>
+    <label>Keywords (comma separated):</label><br>
+    <input 
+      type="text" 
+      name="keywords" 
+      value="<%= question.keywords.join(', ') %>"
+    >
+  </div>
+
+  <br>
+
+  <button type="submit">Update Question</button>
+
+</form>
+
+<br>
+
+<a href="/questions">Back to list</a>

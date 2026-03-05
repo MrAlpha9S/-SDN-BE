@@ -1,0 +1,34 @@
+<h2>Create New Quiz</h2>
+
+<form action="/quizzes/create" method="POST">
+
+  <div>
+    <label>Title:</label><br>
+    <input 
+      type="text" 
+      name="title" 
+      required 
+      style="width:300px;"
+    >
+  </div>
+
+  <br>
+
+  <div>
+    <label>Description:</label><br>
+    <textarea 
+      name="description" 
+      rows="4" 
+      cols="50"
+    ></textarea>
+  </div>
+
+  <br>
+
+  <button type="submit">Create Quiz</button>
+
+</form>
+
+<br>
+
+<a href="/quizzes">Back to list</a>

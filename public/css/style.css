@@ -1,0 +1,149 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Body ===== */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f6fa;
+  padding: 40px;
+  color: #333;
+}
+
+/* ===== Headings ===== */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* ===== Navbar ===== */
+.main-nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.main-nav a {
+  color: #2f6fed;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.main-nav a:hover {
+  background: rgba(47,111,237,0.08);
+  text-decoration: none;
+}
+
+hr.nav-sep {
+  margin-top: 12px;
+  border: none;
+  height: 1px;
+  background: #e9eefc;
+}
+
+/* ===== Links ===== */
+a {
+  text-decoration: none;
+  color: #2f6fed;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background: #2f6fed;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ===== Form ===== */
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: fit-content;
+  min-width: 400px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ===== Inputs ===== */
+input,
+textarea,
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+/* ===== Buttons ===== */
+
+/* Generic button class for anchors and buttons */
+.btn,
+button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  min-width: 100px;
+  height: 38px;
+  border: none;
+  border-radius: 6px;
+  background: #2f6fed;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn:hover,
+button.btn:hover {
+  background: #1e4fd6;
+}
+
+/* ===== Danger button ===== */
+/* Danger variation */
+.btn.danger,
+button.danger {
+  background: #e74c3c;
+}
+
+.btn.danger:hover,
+button.danger:hover {
+  background: #c0392b;
+}
+
+/* Small helper: make action controls sit inline with a gap */
+.actions > * {
+  margin-right: 8px;
+}
+
+/* ===== Small helper spacing ===== */
+div {
+  margin-bottom: 10px;
+}
