@@ -18,23 +18,44 @@ router.get("/login", (req, res) => {
 });
 
 // 📌 Register (for testing)
-router.get("/register", (req, res) => {
-  res.render("auth/register", {
-    title: 'Register'
-  });
-});
+// router.get("/register", (req, res) => {
+//   res.render("auth/register", {
+//     title: 'Register'
+//   });
+// });
+
+// router.post("/register", async (req, res) => {
+//   const { username, password } = req.body;
+
+//   const hashedPassword = await bcrypt.hash(password, 10);
+
+//   await UserData.create({
+//     username,
+//     password: hashedPassword
+//   });
+
+//   res.redirect("/login");
+// });
 
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+    const existing = await UserData.findOne({ username });
+    if (existing) {
+      return res.status(409).json({ message: "Username already taken" });
+    }
 
-  await UserData.create({
-    username,
-    password: hashedPassword
-  });
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  res.redirect("/auth/login");
+    await UserData.create({ username, password: hashedPassword });
+
+    res.status(201).json({ message: "Registered successfully" });
+
+  } catch (err) {
+    console.error("Register error:", err.message);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 router.post("/login", async (req, res) => {
