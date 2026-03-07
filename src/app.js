@@ -27,7 +27,7 @@ const app = express();
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
-const FE = process.env.FE || 'http://localhost:5173';
+const FE = process.env.FE;
 
 connectDB();
 
