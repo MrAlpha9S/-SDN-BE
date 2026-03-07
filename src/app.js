@@ -27,6 +27,7 @@ const app = express();
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
+const FE = process.env.FE || 'http://localhost:5173';
 
 connectDB();
 
@@ -37,7 +38,7 @@ app.use(expressStatic(join(__dirname, "..", "public")));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: FE,
     credentials: true
 }));
 
@@ -54,9 +55,9 @@ app.use("/auth", authRouter);
 // protect all quiz routes
 
 app.use("/", indexRouter);
-app.use("/quizzes", authMiddleware, quizRouter);
-app.use("/questions", authMiddleware, questionRouter);
-app.use("/users", authMiddleware, usersRouter);
+app.use("/quizzes", quizRouter);
+app.use("/questions", questionRouter);
+app.use("/users", usersRouter);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://${HOST}:${PORT}/`);
