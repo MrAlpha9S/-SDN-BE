@@ -31,18 +31,20 @@ const FE = process.env.FE;
 
 connectDB();
 
+app.use(cors({
+    origin: FE,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.options('*', cors());
+
 app.use(urlencoded({ extended: true }));
 app.use(json());
 // serve static assets from the public directory (go up one level from src/)
 app.use(expressStatic(join(__dirname, "..", "public")));
 app.use(cookieParser());
-
-app.use(cors({
-    origin: FE,
-    credentials: true
-}));
-
-app.use(express.json());
 
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "views"));
