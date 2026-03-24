@@ -38,8 +38,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.options('*', cors());
-
 app.use(urlencoded({ extended: true }));
 app.use(json());
 // serve static assets from the public directory (go up one level from src/)
