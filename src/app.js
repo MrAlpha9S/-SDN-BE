@@ -5,6 +5,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import expressLayouts from "express-ejs-layouts";
 import connectDB from "./config/db.js";
+import {verifyUser} from "./config/authenticate.js"
 
 import { authMiddleware } from "./middleware/auth.js";
 import authRouter from "./routes/auth.js";
@@ -25,17 +26,26 @@ const __dirname = dirname(__filename); // D:\VSCode\SDN\AS2\src
 
 const app = express();
 
-const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
 const FE = process.env.FE;
+console.log('FE: ', FE)
 
 connectDB();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  FE
+];
+
 app.use(cors({
-    origin: FE,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 app.use(urlencoded({ extended: true }));
@@ -55,10 +65,10 @@ app.use("/auth", authRouter);
 // protect all quiz routes
 
 app.use("/", indexRouter);
-app.use("/quizzes", quizRouter);
-app.use("/questions", questionRouter);
+app.use("/quizzes", verifyUser, quizRouter);
+app.use("/questions", verifyUser, questionRouter);
 app.use("/users", usersRouter);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://${HOST}:${PORT}/`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
