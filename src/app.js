@@ -65,7 +65,7 @@ app.use("/auth", authRouter);
 // protect all quiz routes
 
 app.use("/", indexRouter);
-app.use("/quizzes", verifyUser, quizRouter);
+app.use("/quizzes", quizRouter);
 app.use("/questions", verifyUser, questionRouter);
 app.use("/users", usersRouter);
 

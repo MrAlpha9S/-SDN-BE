@@ -51,7 +51,7 @@ router.post("/create", verifyUser, async (req, res) => {
 });
 
 // PUT update quiz
-router.put("/update/:id", verifyAuthorOrAdmin, async (req, res) => {
+router.put("/update/:id", verifyUser, verifyAuthorOrAdmin, async (req, res) => {
   try {
     const { title, description, questions } = req.body;
 
@@ -71,7 +71,7 @@ router.put("/update/:id", verifyAuthorOrAdmin, async (req, res) => {
 });
 
 // DELETE quiz
-router.delete("/:id", verifyAuthorOrAdmin, async (req, res) => {
+router.delete("/:id", verifyUser, verifyAuthorOrAdmin, async (req, res) => {
   try {
     const deleted = await QuestionData.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: "Quiz not found" });

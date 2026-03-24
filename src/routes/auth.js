@@ -75,11 +75,12 @@ router.post("/login", async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "none",  // Required for cross-origin requests
-    secure: true,      // Required when sameSite is "none"
+    sameSite: "lax",
+    secure: false
   });
 
   res.json({
+    token: token,
     user: {
       _id: user._id,
       username: user.username,

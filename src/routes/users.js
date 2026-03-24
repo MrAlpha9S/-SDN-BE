@@ -1,11 +1,12 @@
 import express from "express";
 import UserData from "../models/UserModel.js";
-import { verifyAdmin } from "../config/authenticate.js";
+import { verifyAdmin, verifyUser } from "../config/authenticate.js";
+import { verify } from "crypto";
 
 const router = express.Router();
 
 /* ===== GET /users (Admin only) ===== */
-router.get("/", verifyAdmin, async (req, res) => {
+router.get("/", verifyUser, verifyAdmin, async (req, res) => {
   try {
     const users = await UserData.find().select("-password");
     res.status(200).json({ count: users.length, users });
@@ -16,7 +17,7 @@ router.get("/", verifyAdmin, async (req, res) => {
 });
 
 /* ===== PATCH /users/:id/admin — Toggle isAdmin (Admin only) ===== */
-router.patch("/:id/admin", verifyAdmin, async (req, res) => {
+router.patch("/:id/admin", verifyUser, verifyAdmin, async (req, res) => {
   try {
     const { isAdmin } = req.body;
 
@@ -40,7 +41,7 @@ router.patch("/:id/admin", verifyAdmin, async (req, res) => {
 });
 
 /* ===== DELETE /users/:id (Admin only) ===== */
-router.delete("/:id", verifyAdmin, async (req, res) => {
+router.delete("/:id", verifyUser, verifyAdmin, async (req, res) => {
   try {
     const user = await UserData.findByIdAndDelete(req.params.id);
 

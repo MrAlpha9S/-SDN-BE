@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT;
 
 export const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
-  // console.log('Token in verifyUser: ', token);
+  console.log('Token in verifyUser: ', token);
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" }); // ← return JSON, not redirect
@@ -23,6 +23,7 @@ export const verifyUser = (req, res, next) => {
 
 /* ===== Verify Admin ===== */
 export const verifyAdmin = async (req, res, next) => {
+  console.log('admin: ', req.user)
   try {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
